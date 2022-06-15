@@ -1,24 +1,14 @@
+import { useState, useEffect } from 'react'
+import { getGifs } from '../helpers/getGifs'
+
 const GifGrid = ({ category }) => {
 
-  const getGifs = async() => {
-    const api_key = 'zMYQShqVzaNHXyjz3vOQHul3zPbhrfGV'
-    const url = 'https://api.giphy.com/v1/gifs/search?q=Dragon+Ball&limit=10&api_key=zMYQShqVzaNHXyjz3vOQHul3zPbhrfGV'
+  const [images, setImages] = useState([])
 
-    const respuesta = await fetch(url)
-    const { data } = await respuesta.json()
-
-    const gifs = data.map( img => {
-        return {
-            id: img.id,
-            title: img.title,
-            url: img.images?.downsized_medium.url
-        }
-    })
-
-    console.log(gifs)
-  }
-
-  getGifs()
+  useEffect(() => {
+    getGifs(category)
+  }, [])
+  
 
   return (
     <h3>{category}</h3>
